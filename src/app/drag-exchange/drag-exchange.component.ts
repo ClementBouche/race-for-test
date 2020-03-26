@@ -11,15 +11,26 @@ export class DragExchangeComponent implements OnInit {
 
   room: string = 'partie-1';
 
-  draw = [];
+  // reserve
+  // pile.draw
+  // pile.discard
+  // pile.vp
+  pile: any;
 
-  discard = [];
-
+  // to play
   preview = [];
 
-  board = [];
+  // player
+  // player.vp
+  // player.plateau
+  // player.hand
+  player: any;
 
-  hand = [];
+  // opponnent
+  // opponnent.vp
+  // opponnent.plateau
+  // opponnent.hand
+  opponnent: any;
 
   constructor(
     private gameService: GameService,
@@ -30,16 +41,32 @@ export class DragExchangeComponent implements OnInit {
     this.gameService.joinRoom(this.room);
 
     this.gameService.room.subscribe((data) => {
-      console.log(data);
-      this.draw = data.draw;
-      this.draw = data.draw;
-      this.discard = data.discard;
+      this.pile = {
+        draw: data.draw,
+        discard: data.discard,
+        vp: data.stock.vp
+      };
+
+      this.player = data.players.find((pl) => pl.username === this.gameService.getUsername());
+
+      this.opponnent = data.players.find((pl) => pl.username !== this.gameService.getUsername());
 
       this.cd.markForCheck();
     });
   }
 
   drop(event: CdkDragDrop<string[]>) {
+    console.log('drop', event, event.container, event.container.id);
+    if (event.container.id === 'discard') {
+      this.discard(event.item.element.nativeElement.id);
+    }
+    if (event.container.id === 'hand') {
+      this.pick(event.item.element.nativeElement.id);
+    }
+    if (event.container.id === 'plateau') {
+      this.play(event.item.element.nativeElement.id);
+    }
+
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     } else {
@@ -50,21 +77,16 @@ export class DragExchangeComponent implements OnInit {
     }
   }
 
-  pick() {
-
+  pick(cardid) {
+    this.gameService.pick(parseInt(cardid));
   }
 
-  renew() {
-    this.draw = this.draw.concat(this.discard);
-    this.discard = [];
-    this.shuffle(this.draw);
+  discard(cardid) {
+    this.gameService.discard(parseInt(cardid));
   }
 
-  shuffle(array__: any[]) {
-    for (let i = array__.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [array__[i], array__[j]] = [array__[j], array__[i]];
-    }
+  play(cardid) {
+    this.gameService.play(parseInt(cardid));
   }
 
 }

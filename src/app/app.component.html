@@ -1,13 +1,19 @@
 <!-- <app-drag-list></app-drag-list> -->
 
-<div *ngIf="username">
+<mat-toolbar color="primary" *ngIf="username">
+  <mat-toolbar-row>
+  Race for the Galaxy
+  <span></span>
   Bienvenue : 
-  <input type="text" [value]="username" disabled>
-</div>
+  <input matInput type="text" [value]="username" disabled>
+  </mat-toolbar-row>
 
-<nav>
-  <a routerLink="join" routerLinkActive="active">Rejoindre</a>
-  <a routerLink="leave" routerLinkActive="active">Quitter</a>
-</nav>
+  <mat-toolbar-row>
+    <nav>
+      <a mat-button color="accent" routerLink="join" routerLinkActive="active">Rejoindre</a>
+      <a mat-button color="accent" routerLink="leave" routerLinkActive="active">Quitter</a>
+    </nav>
+  </mat-toolbar-row>
+</mat-toolbar>
 
 <router-outlet></router-outlet>

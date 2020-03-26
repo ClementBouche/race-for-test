@@ -11,7 +11,11 @@ import {MatCardModule} from '@angular/material/card';
 import { DragListComponent } from './drag-list/drag-list.component';
 import { DragExchangeComponent } from './drag-exchange/drag-exchange.component'; 
 import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
- 
+
+import {MatToolbarModule} from '@angular/material/toolbar'; 
+import {MatInputModule} from '@angular/material/input'; 
+
+import {MatButtonModule} from '@angular/material/button'; 
 
 import {MatGridListModule} from '@angular/material/grid-list';
 import { BackgroundImageDirective } from './directives/background-image.directive';
@@ -36,7 +40,10 @@ const config: SocketIoConfig = { url: 'http://localhost:4040', options: {} };
     SocketIoModule.forRoot(config),
     DragDropModule,
     MatCardModule,
-    MatGridListModule
+    MatButtonModule,
+    MatGridListModule,
+    MatInputModule,
+    MatToolbarModule
   ],
   providers: [],
   bootstrap: [AppComponent]

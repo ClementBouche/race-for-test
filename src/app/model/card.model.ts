@@ -3,6 +3,8 @@ import { Unserializable } from './unserializable.interface';
 
 export class Card implements Serializable, Unserializable {
 
+  id: '';
+
   name: '';
 
   cover: '';
@@ -12,6 +14,7 @@ export class Card implements Serializable, Unserializable {
   sprite: number[];
 
   deserialize(input: any): this {
+    this.id = input.id;
     this.name = input.name;
     this.cover = input.cover;
     this.image = input.image;

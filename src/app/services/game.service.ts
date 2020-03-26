@@ -19,10 +19,14 @@ export class GameService {
     private socket: Socket
   ) { }
 
+  getUsername() {
+    return localStorage.getItem('username');
+  }
+
   joinRoom(name: string) {
     this.socket.emit('join', {
       room: name,
-      username: localStorage.getItem('username')
+      username: this.getUsername()
     });
     this.roomName = name;
   }
@@ -30,12 +34,32 @@ export class GameService {
   leaveRoom() {
     this.socket.emit('leave', {
       room: this.roomName,
-      username: localStorage.getItem('username')
-    })
+      username: this.getUsername()
+    });
   }
- 
-  // drawCard(msg: string){
-  //     this.socket.emit("message", msg);
-  // }
+  
+  pick(cardid: number) {
+    this.socket.emit('draw', {
+      room: this.roomName,
+      username: this.getUsername(),
+      cardid: cardid
+    });
+  }
+
+  discard(cardid: number) {
+    this.socket.emit('discard', {
+      room: this.roomName,
+      username: this.getUsername(),
+      cardid: cardid
+    });
+  }
+
+  play(cardid: number) {
+    this.socket.emit('play', {
+      room: this.roomName,
+      username: this.getUsername(),
+      cardid: cardid
+    });
+  }
 
 }

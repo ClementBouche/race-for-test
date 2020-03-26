@@ -11,7 +11,7 @@ export class Room implements Serializable, Unserializable {
     plateau: Card[],
     hand: Card[],
     vp: number
-  };
+  }[];
 
   draw: Card[];
 
@@ -22,7 +22,7 @@ export class Room implements Serializable, Unserializable {
   };
 
   deserialize(input: any): this {
-    this.players = input.players.map(pl => {
+    this.players = input.players.map((pl: any) => {
       return {
         username: pl.username,
         plateau: pl.plateau.map((c) => new Card().deserialize(c)),
