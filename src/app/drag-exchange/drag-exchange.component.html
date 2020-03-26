@@ -1,0 +1,113 @@
+<div cdkDropListGroup>
+
+  <mat-grid-list cols="4" rowHeight=200px>
+
+    <mat-grid-tile
+        colspan="1"
+        rowspan="4"
+        [style.background]="'lightblue'">
+        <div>
+          Pioche : {{ draw.length }}
+          <button (click)="shuffle(draw)">Shuffle</button>
+        </div>
+        <div
+          cdkDropList
+          [cdkDropListData]="draw"
+          class="example-list pile"
+          (cdkDropListDropped)="drop($event)">
+          <div class="example-box" *ngFor="let item of draw" cdkDrag>{{item.cover}}</div>
+        </div>
+        Défausse : {{ discard.length }}
+        <button (click)="renew()">Renew</button>
+        <div
+          cdkDropList
+          [cdkDropListData]="discard"
+          class="example-list pile"
+          (cdkDropListDropped)="drop($event)">
+          <div class="example-box" *ngFor="let item of discard" cdkDrag>{{item.cover}}</div>
+        </div>
+    </mat-grid-tile>
+
+    <mat-grid-tile
+        colspan="2"
+        rowspan="1"
+        [style.background]="'lightgreen'">
+    </mat-grid-tile>
+
+    <mat-grid-tile
+        colspan="1"
+        rowspan="4"
+        [style.background]="'lightpink'">
+    </mat-grid-tile>
+
+    <mat-grid-tile
+        colspan="2"
+        rowspan="2"
+        [style.background]="'#DDBDF1'">
+        <div
+          cdkDropList
+          [cdkDropListData]="preview"
+          cdkDropListOrientation="horizontal"
+          class="example-list flex"
+          (cdkDropListDropped)="drop($event)">
+          <div class="example-box" *ngFor="let item of preview" [appBackgroundImage]="item.image" [appBackgroundSprite]="item.sprite" cdkDrag>{{item.name}}</div>
+        </div>
+
+        <button (click)="pick()">Valider</button>
+    </mat-grid-tile>
+
+    <mat-grid-tile
+        colspan="2"
+        rowspan="1"
+        [style.background]="'lightgreen'">
+        <div
+          cdkDropList
+          [cdkDropListData]="hand"
+          cdkDropListOrientation="horizontal"
+          class="example-list flex"
+          (cdkDropListDropped)="drop($event)">
+          <div class="example-box" *ngFor="let item of hand" [appBackgroundImage]="item.image" [appBackgroundSprite]="item.sprite" cdkDrag>{{item.name}}</div>
+        </div>
+    </mat-grid-tile>
+  </mat-grid-list>
+</div>
+
+<!-- 
+
+<div class="grids" cdkDropListGroup>
+  <div class="example-container container-top">
+    <h2>To do</h2>
+
+    <div
+      cdkDropList
+      [cdkDropListData]="todo"
+      class="example-list"
+      (cdkDropListDropped)="drop($event)">
+      <div class="example-box" *ngFor="let item of todo" cdkDrag>{{item}}</div>
+    </div>
+  </div>
+
+  <div class="example-container container-bottom">
+    <h2>Done</h2>
+
+    <div
+      cdkDropList
+      [cdkDropListData]="done"
+      class="example-list"
+      (cdkDropListDropped)="drop($event)">
+      <div class="example-box" *ngFor="let item of done" cdkDrag>{{item}}</div>
+    </div>
+  </div>
+
+  <div class="example-container container-center">
+    <h2>TROIS</h2>
+
+    <div
+      cdkDropList
+      [cdkDropListData]="trois"
+      class="example-list"
+      (cdkDropListDropped)="drop($event)">
+      <div class="example-box" *ngFor="let item of trois" cdkDrag>{{item}}</div>
+    </div>
+  </div>
+</div> -->
