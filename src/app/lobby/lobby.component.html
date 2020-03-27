@@ -1,0 +1,16 @@
+<mat-card>
+  <p>Parties en cours</p>
+  <mat-grid-list cols="4">
+    <mat-grid-tile *ngFor="let item of rooms" colspan="1" rowspan="1">
+      <mat-card>
+        <div class="info">{{ item }}</div>
+        <mat-divider></mat-divider>
+        <div class="info">Partie  en cours.</div>
+        <mat-divider></mat-divider>
+        <div class="info">
+          <a mat-raised-button color="accent" [routerLink]="['/', 'join', item]" routerLinkActive="active">Rejoindre</a>
+        </div>
+      </mat-card>
+    </mat-grid-tile>
+  </mat-grid-list>
+</mat-card>

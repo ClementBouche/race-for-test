@@ -1,4 +1,5 @@
 import { Component, ChangeDetectionStrategy, OnInit, ChangeDetectorRef } from '@angular/core';
+import { GameService } from './services/game.service';
 
 const usernames = [
   'Cléopatre', 
@@ -8,7 +9,9 @@ const usernames = [
   'PhillipOdile',
   'Poussin doré',
   'Disco éléphant',
-  'Girage trapéziste'
+  'Girage trapéziste',
+  'Batman',
+  'Robin des bois'
 ];
 
 @Component({
@@ -21,11 +24,12 @@ export class AppComponent implements OnInit {
 
   username: string;
 
-  constructor(
-    private cd: ChangeDetectorRef
-  ) {
+  room: string;
 
-  }
+  constructor(
+    private gameService: GameService,
+    private cd: ChangeDetectorRef
+  ) {}
 
   ngOnInit() {
     if (!window.localStorage) {
@@ -40,6 +44,14 @@ export class AppComponent implements OnInit {
       this.username = localStorage.getItem('username');
     }
     this.cd.markForCheck();
+  }
+
+  newRoom() {
+    this.gameService.createRoom();
+  }
+
+  deleteRooms() {
+    this.gameService.leaveAll();
   }
 
 }

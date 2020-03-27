@@ -5,21 +5,23 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DragTestComponent } from './drag-test/drag-test.component';
-import { DragDropModule } from '@angular/cdk/drag-drop';
 import { SimpleDragComponent } from './simple-drag/simple-drag.component';
-import {MatCardModule} from '@angular/material/card';
 import { DragListComponent } from './drag-list/drag-list.component';
 import { DragExchangeComponent } from './drag-exchange/drag-exchange.component'; 
 import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
 
+// material
+import { DragDropModule } from '@angular/cdk/drag-drop';
+import {MatCardModule} from '@angular/material/card';
 import {MatToolbarModule} from '@angular/material/toolbar'; 
 import {MatInputModule} from '@angular/material/input'; 
-
 import {MatButtonModule} from '@angular/material/button'; 
-
 import {MatGridListModule} from '@angular/material/grid-list';
+import {MatDividerModule} from '@angular/material/divider';
+
 import { BackgroundImageDirective } from './directives/background-image.directive';
 import { LeaveRoomComponent } from './leave-room/leave-room.component';
+import { LobbyComponent } from './lobby/lobby.component';
 
 const config: SocketIoConfig = { url: 'http://localhost:4040', options: {} };
  
@@ -32,6 +34,7 @@ const config: SocketIoConfig = { url: 'http://localhost:4040', options: {} };
     DragExchangeComponent,
     BackgroundImageDirective,
     LeaveRoomComponent,
+    LobbyComponent,
   ],
   imports: [
     BrowserModule,
@@ -43,7 +46,8 @@ const config: SocketIoConfig = { url: 'http://localhost:4040', options: {} };
     MatButtonModule,
     MatGridListModule,
     MatInputModule,
-    MatToolbarModule
+    MatToolbarModule,
+    MatDividerModule
   ],
   providers: [],
   bootstrap: [AppComponent]

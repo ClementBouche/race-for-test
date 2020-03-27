@@ -1,6 +1,8 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { GameService } from '../services/game.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { switchMap, map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-drag-exchange',
@@ -8,8 +10,6 @@ import { GameService } from '../services/game.service';
   styleUrls: ['./drag-exchange.component.css']
 })
 export class DragExchangeComponent implements OnInit {
-
-  room: string = 'partie-1';
 
   // reserve
   // pile.draw
@@ -34,13 +34,19 @@ export class DragExchangeComponent implements OnInit {
 
   constructor(
     private gameService: GameService,
+    private route: ActivatedRoute,
+    private router: Router,
     private cd: ChangeDetectorRef,
   ) {}
 
   ngOnInit() {
-    this.gameService.joinRoom(this.room);
+
+    this.route.paramMap.pipe(
+      map((params) => this.gameService.joinRoom(params.get('room')))
+    ).subscribe();
 
     this.gameService.room.subscribe((data) => {
+      console.log('room', data);
       this.pile = {
         draw: data.draw,
         discard: data.discard,

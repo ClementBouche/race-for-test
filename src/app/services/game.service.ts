@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Socket } from 'ngx-socket-io';
 import { map } from 'rxjs/operators';
-import { Card } from '../model/card.model';
 import { Room } from '../model/room.model';
 
 @Injectable({
@@ -13,6 +12,12 @@ export class GameService {
     map((data) => new Room().deserialize(data))
   );
 
+  rooms = this.socket.fromEvent<String[]>('rooms').pipe(
+    map((data) => data)
+  );
+
+  private rooms__: String[];
+
   private roomName: string;
 
   constructor(
@@ -23,6 +28,30 @@ export class GameService {
     return localStorage.getItem('username');
   }
 
+  getRooms() {
+    return this.rooms__;
+  }
+
+  setRooms(rooms) {
+    this.rooms__ = rooms;
+  }
+
+
+  createRoom() {
+    this.socket.emit('create', {
+      username: this.getUsername()
+    });
+  }
+
+
+  leaveAll() {
+    console.log('leaveall');
+    this.socket.emit('leave_all', {
+      username: this.getUsername()
+    });
+  }
+
+
   joinRoom(name: string) {
     this.socket.emit('join', {
       room: name,
@@ -31,6 +60,7 @@ export class GameService {
     this.roomName = name;
   }
 
+
   leaveRoom() {
     this.socket.emit('leave', {
       room: this.roomName,
@@ -38,6 +68,7 @@ export class GameService {
     });
   }
   
+
   pick(cardid: number) {
     this.socket.emit('draw', {
       room: this.roomName,
@@ -46,6 +77,7 @@ export class GameService {
     });
   }
 
+
   discard(cardid: number) {
     this.socket.emit('discard', {
       room: this.roomName,
@@ -53,6 +85,7 @@ export class GameService {
       cardid: cardid
     });
   }
+
 
   play(cardid: number) {
     this.socket.emit('play', {

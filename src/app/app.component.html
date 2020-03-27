@@ -2,16 +2,20 @@
 
 <mat-toolbar color="primary" *ngIf="username">
   <mat-toolbar-row>
-  Race for the Galaxy
-  <span></span>
-  Bienvenue : 
-  <input matInput type="text" [value]="username" disabled>
+    Race for the Galaxy
+    <span></span>
+    Bienvenue : 
+    <input matInput type="text" [value]="username" disabled>
   </mat-toolbar-row>
 
   <mat-toolbar-row>
     <nav>
-      <a mat-button color="accent" routerLink="join" routerLinkActive="active">Rejoindre</a>
-      <a mat-button color="accent" routerLink="leave" routerLinkActive="active">Quitter</a>
+      <a mat-raised-button color="accent" routerLink="" routerLinkActive="active">Toutes les parties</a>
+      <a mat-raised-button color="accent" (click)="newRoom()">Nouvelle partie</a>
+      <ng-container *ngIf="room && room != null">
+        <a mat-raised-button color="accent" routerLink="leave" routerLinkActive="active">Quitter</a>
+      </ng-container>
+      <a mat-raised-button color="accent" (click)="deleteRooms()">Supprimer toutes les parties</a>
     </nav>
   </mat-toolbar-row>
 </mat-toolbar>
