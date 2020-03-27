@@ -1,15 +1,18 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, ViewChild, ElementRef, AfterViewChecked, AfterViewInit } from '@angular/core';
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { GameService } from '../services/game.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { switchMap, map } from 'rxjs/operators';
+import { map, auditTime } from 'rxjs/operators';
+import { fromEvent } from 'rxjs';
 
 @Component({
   selector: 'app-drag-exchange',
   templateUrl: './drag-exchange.component.html',
   styleUrls: ['./drag-exchange.component.css']
 })
-export class DragExchangeComponent implements OnInit {
+export class DragExchangeComponent implements OnInit, AfterViewInit {
+
+  @ViewChild('plateau') plateau: ElementRef;
 
   // reserve
   // pile.draw
@@ -32,6 +35,8 @@ export class DragExchangeComponent implements OnInit {
   // opponnent.hand
   opponnent: any;
 
+  opponnentMouse: any;
+
   constructor(
     private gameService: GameService,
     private route: ActivatedRoute,
@@ -46,7 +51,6 @@ export class DragExchangeComponent implements OnInit {
     ).subscribe();
 
     this.gameService.room.subscribe((data) => {
-      console.log('room', data);
       this.pile = {
         draw: data.draw,
         discard: data.discard,
@@ -59,6 +63,23 @@ export class DragExchangeComponent implements OnInit {
 
       this.cd.markForCheck();
     });
+
+
+    this.gameService.mouseMoved.subscribe((data) => {
+      this.opponnentMouse = data['mouse_event'];
+      this.cd.markForCheck();
+    });
+  }
+
+  ngAfterViewInit() {
+    if (this.plateau) {
+      fromEvent(this.plateau.nativeElement, 'mousemove').pipe(
+        auditTime(250),
+        map((e) => this.gameService.mouseMove(e))
+      ).subscribe();
+    } else {
+      console.log('no subscribe');
+    }
   }
 
   drop(event: CdkDragDrop<string[]>) {

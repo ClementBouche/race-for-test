@@ -22,6 +22,7 @@ import {MatDividerModule} from '@angular/material/divider';
 import { BackgroundImageDirective } from './directives/background-image.directive';
 import { LeaveRoomComponent } from './leave-room/leave-room.component';
 import { LobbyComponent } from './lobby/lobby.component';
+import { OpponentMouseDirective } from './directives/opponent-mouse.directive';
 
 const config: SocketIoConfig = { url: 'http://localhost:4040', options: {} };
  
@@ -35,6 +36,7 @@ const config: SocketIoConfig = { url: 'http://localhost:4040', options: {} };
     BackgroundImageDirective,
     LeaveRoomComponent,
     LobbyComponent,
+    OpponentMouseDirective,
   ],
   imports: [
     BrowserModule,

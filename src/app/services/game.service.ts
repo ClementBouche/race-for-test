@@ -16,6 +16,10 @@ export class GameService {
     map((data) => data)
   );
 
+  mouseMoved = this.socket.fromEvent<any>('mouse_moved').pipe(
+    map((data) => data)
+  );
+
   private rooms__: String[];
 
   private roomName: string;
@@ -92,6 +96,18 @@ export class GameService {
       room: this.roomName,
       username: this.getUsername(),
       cardid: cardid
+    });
+  }
+
+  mouseMove(event) {
+    console.log(event);
+    this.socket.emit('move', {
+      room: this.roomName,
+      username: this.getUsername(),
+      mouse_event: {
+        x: event.clientX,
+        y: event.clientY
+      }
     });
   }
 
