@@ -1,111 +1,104 @@
+<ng-container *ngIf="cardPreview | async as __preview__">
+  <div class="preview">
+    <app-simple-card
+          [card]="__preview__.card"
+          [cover]="__preview__.cover"
+          dragDisable="true" isPreview="true">
+    </app-simple-card>
+    <button mat-mini-fab color="accent" (click)="closePreview()">X</button>
+    <!-- <div class="preview-shadow mat-elevation-z8"></div> -->
+  </div>
+</ng-container>
+
+<ng-container *ngIf="opponnent">
+  <div [appOpponentMouse]="opponnentMouse" class="opponnent_mouse"></div>
+</ng-container>
+
 <div class="table" #plateau cdkDropListGroup>
-  <div *ngIf="opponnent" [appOpponentMouse]="opponnentMouse" class="opponnent_mouse"></div>
 
-  <mat-grid-list *ngIf="pile" cols="4" rowHeight=200px>
+  <mat-grid-list *ngIf="pile" cols="8" rowHeight="125px">
 
-    <mat-grid-tile
-        colspan="1"
-        rowspan="4">
+    <!-- frame -->
+    <mat-grid-tile colspan="1" rowspan="5">
+    </mat-grid-tile>
+
+    <!-- oponnent plateau -->
+    <mat-grid-tile colspan="6" rowspan="3">
+      <div id="opponnent_plateau" class="plateau blue-box"
+          cdkDropListOrientation="horizontal"
+          [cdkDropListData]="opponnent.plateau"
+          (cdkDropListDropped)="drop($event)" cdkDropList>
+        <ng-container *ngFor="let item of opponnent.plateau">
+          <app-simple-card [card]="item" dragDisable="true"></app-simple-card>
+        </ng-container>
+      </div>
+    </mat-grid-tile>
+
+    <!-- frame -->
+    <mat-grid-tile colspan="1" rowspan="5">
+    </mat-grid-tile>
+    
+    <!-- player plateau -->
+    <mat-grid-tile colspan="6" rowspan="3">
+      <div id="plateau" class="plateau pink-box"
+          cdkDropListOrientation="horizontal"
+          [cdkDropListData]="player.plateau"
+          (cdkDropListDropped)="drop($event)" cdkDropList>
+        <ng-container *ngFor="let item of player.plateau">
+          <app-simple-card [card]="item" dragDisable="true"></app-simple-card>
+        </ng-container>
+      </div>
+    </mat-grid-tile>
+
+    <!-- draw -->
+    <mat-grid-tile colspan="1" rowspan="2">
         <div class="area">
           <mat-card class="info">
             Pioche : {{ pile.draw.length }}
           </mat-card>
-          <div cdkDropList id="draw"
+          <div id="draw" class="pile mat-elevation-z8"
             [cdkDropListData]="pile.draw"
-            class="example-list pile"
-            (cdkDropListDropped)="drop($event)">
-            <div *ngFor="let item of pile.draw"
-              class="example-box" 
-              appBackgroundImage="assets/cover-card.jpg"
-              [id]="item.id" cdkDrag></div>
+            (cdkDropListDropped)="drop($event)" cdkDropList>
+            <ng-container *ngFor="let item of pile.draw">
+              <app-simple-card [card]="item" cover="true"></app-simple-card>
+            </ng-container>
           </div>
         </div>
+    </mat-grid-tile>
 
-        <div class="area">
-          <mat-card class="info">
-            Défausse : {{ pile.discard.length }}
-            <!-- <button (click)="renew()">Renew</button> -->
-          </mat-card>
-          <div cdkDropList id="discard"
-            [cdkDropListData]="pile.discard"
-            class="example-list pile"
-            (cdkDropListDropped)="drop($event)">
-            <div *ngFor="let item of pile.discard" 
-              class="example-box"
-              appBackgroundImage="assets/cover-card.jpg" 
-              [id]="item.id" cdkDrag></div>
-          </div>
+    <!-- discards -->
+    <mat-grid-tile colspan="1" rowspan="2">
+      <div class="area">
+        <mat-card class="info">
+          Défausse : {{ pile.discard.length }}
+          <!-- <button (click)="renew()">Renew</button> -->
+        </mat-card>
+        <div id="discard" class="pile mat-elevation-z8"
+          [cdkDropListData]="pile.discard"
+          (cdkDropListDropped)="drop($event)" cdkDropList>
+          <ng-container *ngFor="let item of pile.discard">
+            <app-simple-card [card]="item" cover="true" dragDisable="true"></app-simple-card>
+          </ng-container>
         </div>
+      </div>
+    </mat-grid-tile>
 
-        <!-- <div cdkDropList
-          [cdkDropListData]="preview"
+    <!-- player info -->
+    <mat-grid-tile class="hand-tile" colspan="6" rowspan="2" height="100px">
+      <div id="hand" class="hand mat-elevation-z8"
+          [cdkDropListData]="player.hand"
           cdkDropListOrientation="horizontal"
-          class="example-list flex"
-          (cdkDropListDropped)="drop($event)">
-          <div class="example-box" *ngFor="let item of preview" [appBackgroundImage]="item.image" [appBackgroundSprite]="item.sprite" cdkDrag></div>
-        </div> -->
-    </mat-grid-tile>
-
-    <mat-grid-tile
-        colspan="3"
-        rowspan="1">
-        <div class="area">
-          <mat-card class="info">
-            Plateau de {{ opponnent.username }}: {{ opponnent.plateau.length }}
-          </mat-card>
-          <div cdkDropList id="opponnent_plateau"
-            [cdkDropListData]="opponnent.plateau"
-            cdkDropListOrientation="horizontal"
-            class="example-list flex"
-            (cdkDropListDropped)="drop($event)"
-            disabled>
-            <div class="example-box" *ngFor="let item of opponnent.plateau" 
-                [appBackgroundImage]="item.image"
-                [appBackgroundSprite]="item.sprite"
-                cdkDragDisabled="true" 
-                [id]="item.id" cdkDrag></div>
-          </div>
+          (cdkDropListDropped)="drop($event)" cdkDropList>
+          <ng-container *ngFor="let item of player.hand">
+            <app-simple-card [card]="item"></app-simple-card>
+          </ng-container>
         </div>
     </mat-grid-tile>
 
-    <mat-grid-tile
-        colspan="3"
-        rowspan="2">
-        <div class="area">
-          <mat-card class="info">
-            Cartes jouées : {{ player.plateau.length }}
-          </mat-card>
-          <div cdkDropList id="plateau"
-            [cdkDropListData]="player.plateau"
-            cdkDropListOrientation="horizontal"
-            class="example-list flex"
-            (cdkDropListDropped)="drop($event)">
-            <div class="example-box" *ngFor="let item of player.plateau" 
-                [appBackgroundImage]="item.image"
-                [appBackgroundSprite]="item.sprite" 
-                [id]="item.id" cdkDrag></div>
-          </div>
-        </div>
-    </mat-grid-tile>
-
-    <mat-grid-tile
-        colspan="3"
-        rowspan="1">
-        <div class="area">
-          <mat-card class="info">
-            Cartes en main : {{ player.hand.length }}
-          </mat-card>
-          <div cdkDropList id="hand"
-            [cdkDropListData]="player.hand"
-            cdkDropListOrientation="horizontal"
-            class="example-list flex"
-            (cdkDropListDropped)="drop($event)">
-            <div class="example-box" *ngFor="let item of player.hand"
-              [appBackgroundImage]="item.image"
-              [appBackgroundSprite]="item.sprite" 
-              [id]="item.id" cdkDrag></div>
-          </div>
-        </div>
-    </mat-grid-tile>
   </mat-grid-list>
+
 </div>
+
+<!-- <mat-card class="info">
+    Cartes en main : {{ player.hand.length }}
+  </mat-card> -->

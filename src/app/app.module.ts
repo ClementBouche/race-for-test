@@ -23,8 +23,12 @@ import { BackgroundImageDirective } from './directives/background-image.directiv
 import { LeaveRoomComponent } from './leave-room/leave-room.component';
 import { LobbyComponent } from './lobby/lobby.component';
 import { OpponentMouseDirective } from './directives/opponent-mouse.directive';
+import { SimpleCardComponent } from './simple-card/simple-card.component';
+import { environment } from 'src/environments/environment';
 
-const config: SocketIoConfig = { url: 'http://localhost:4040', options: {} };
+
+const config: SocketIoConfig = { url: environment.socket, options: {} };
+
  
 @NgModule({
   declarations: [
@@ -37,6 +41,7 @@ const config: SocketIoConfig = { url: 'http://localhost:4040', options: {} };
     LeaveRoomComponent,
     LobbyComponent,
     OpponentMouseDirective,
+    SimpleCardComponent,
   ],
   imports: [
     BrowserModule,

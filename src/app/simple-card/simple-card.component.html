@@ -1,0 +1,12 @@
+<ng-container *ngIf="card">
+  <div class="card-box"
+      (click)="preview()"
+      [appBackgroundImage]="backgroundImage"
+      [appBackgroundSprite]="backgroundSprite"
+      [appBackgroundPreview]="isPreview"
+      [id]="card.id"
+      [ngStyle]="{cursor: dragDisable ? 'auto' : 'pointer'}"
+      [cdkDragDisabled]="dragDisable" cdkDrag>
+    <!-- empty card -->
+  </div>
+</ng-container>

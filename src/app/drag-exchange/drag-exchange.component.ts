@@ -4,6 +4,7 @@ import { GameService } from '../services/game.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { map, auditTime } from 'rxjs/operators';
 import { fromEvent } from 'rxjs';
+import { PreviewService } from '../services/preview.service';
 
 @Component({
   selector: 'app-drag-exchange',
@@ -37,14 +38,19 @@ export class DragExchangeComponent implements OnInit, AfterViewInit {
 
   opponnentMouse: any;
 
+  cardPreview;
+
   constructor(
     private gameService: GameService,
+    private previewService: PreviewService,
     private route: ActivatedRoute,
     private router: Router,
     private cd: ChangeDetectorRef,
   ) {}
 
   ngOnInit() {
+
+    this.cardPreview = this.previewService.cardSelection;
 
     this.route.paramMap.pipe(
       map((params) => this.gameService.joinRoom(params.get('room')))
@@ -78,12 +84,10 @@ export class DragExchangeComponent implements OnInit, AfterViewInit {
         map((e) => this.gameService.mouseMove(e))
       ).subscribe();
     } else {
-      console.log('no subscribe');
     }
   }
 
   drop(event: CdkDragDrop<string[]>) {
-    console.log('drop', event, event.container, event.container.id);
     if (event.container.id === 'discard') {
       this.discard(event.item.element.nativeElement.id);
     }
@@ -114,6 +118,10 @@ export class DragExchangeComponent implements OnInit, AfterViewInit {
 
   play(cardid) {
     this.gameService.play(parseInt(cardid));
+  }
+
+  closePreview() {
+    this.previewService.cardSelection.next(null);
   }
 
 }

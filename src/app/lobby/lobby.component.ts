@@ -19,7 +19,6 @@ export class LobbyComponent implements OnInit {
     this.rooms = this.gameService.getRooms();
 
     this.gameService.rooms.subscribe((data) => {
-      console.log('room received', data);
       this.rooms = data;
       this.gameService.setRooms(data);
 

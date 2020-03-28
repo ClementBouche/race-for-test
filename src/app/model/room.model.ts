@@ -10,7 +10,8 @@ export class Room implements Serializable, Unserializable {
     username: string,
     plateau: Card[],
     hand: Card[],
-    vp: number
+    vp: number,
+    color: string
   }[];
 
   draw: Card[];
@@ -27,7 +28,8 @@ export class Room implements Serializable, Unserializable {
         username: pl.username,
         plateau: pl.plateau.map((c) => new Card().deserialize(c)),
         hand: pl.hand.map((c) => new Card().deserialize(c)),
-        vp: pl.vp
+        vp: pl.vp,
+        color: pl.color
       }
     });
     this.draw = input.draw.map((c) => new Card().deserialize(c));

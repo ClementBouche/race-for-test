@@ -49,7 +49,6 @@ export class GameService {
 
 
   leaveAll() {
-    console.log('leaveall');
     this.socket.emit('leave_all', {
       username: this.getUsername()
     });
@@ -100,7 +99,6 @@ export class GameService {
   }
 
   mouseMove(event) {
-    console.log(event);
     this.socket.emit('move', {
       room: this.roomName,
       username: this.getUsername(),
