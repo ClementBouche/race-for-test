@@ -1,5 +1,15 @@
-<mat-card>
-  <p>Parties en cours</p>
+<mat-toolbar color="primary">
+  <nav>
+    <a mat-raised-button color="accent" (click)="newRoom()">Nouvelle partie</a>
+    <a mat-raised-button color="accent" (click)="deleteRooms()">Supprimer toutes les parties</a>
+  </nav>
+  <span></span>
+  Bienvenue {{ username }}
+</mat-toolbar>
+
+<mat-card *ngIf="rooms">
+  <p *ngIf="rooms.length === 0">Aucune partie en cours</p>
+  <p *ngIf="rooms.length !== 0">Il y a actuellement {{ rooms.length }} parties</p>
   <mat-grid-list cols="4">
     <mat-grid-tile *ngFor="let item of rooms" colspan="1" rowspan="1">
       <mat-card>

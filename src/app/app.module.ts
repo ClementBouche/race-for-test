@@ -18,6 +18,7 @@ import {MatInputModule} from '@angular/material/input';
 import {MatButtonModule} from '@angular/material/button'; 
 import {MatGridListModule} from '@angular/material/grid-list';
 import {MatDividerModule} from '@angular/material/divider';
+import {MatIconModule} from '@angular/material/icon'; 
 
 import { BackgroundImageDirective } from './directives/background-image.directive';
 import { LeaveRoomComponent } from './leave-room/leave-room.component';
@@ -25,6 +26,7 @@ import { LobbyComponent } from './lobby/lobby.component';
 import { OpponentMouseDirective } from './directives/opponent-mouse.directive';
 import { SimpleCardComponent } from './simple-card/simple-card.component';
 import { environment } from 'src/environments/environment';
+import { PlayerStatusComponent } from './player-status/player-status.component';
 
 
 const config: SocketIoConfig = { url: environment.socket, options: {} };
@@ -42,6 +44,7 @@ const config: SocketIoConfig = { url: environment.socket, options: {} };
     LobbyComponent,
     OpponentMouseDirective,
     SimpleCardComponent,
+    PlayerStatusComponent,
   ],
   imports: [
     BrowserModule,
@@ -54,7 +57,8 @@ const config: SocketIoConfig = { url: environment.socket, options: {} };
     MatGridListModule,
     MatInputModule,
     MatToolbarModule,
-    MatDividerModule
+    MatDividerModule,
+    MatIconModule
   ],
   providers: [],
   bootstrap: [AppComponent]

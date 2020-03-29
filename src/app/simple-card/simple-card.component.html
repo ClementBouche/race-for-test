@@ -1,5 +1,5 @@
 <ng-container *ngIf="card">
-  <div class="card-box"
+  <div class="card-box" [class.preview]="isPreview"
       (click)="preview()"
       [appBackgroundImage]="backgroundImage"
       [appBackgroundSprite]="backgroundSprite"

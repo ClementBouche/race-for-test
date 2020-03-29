@@ -5,7 +5,7 @@
           [cover]="__preview__.cover"
           dragDisable="true" isPreview="true">
     </app-simple-card>
-    <button mat-mini-fab color="accent" (click)="closePreview()">X</button>
+    <!-- <button mat-mini-fab color="accent" (click)="closePreview()"><</button> -->
     <!-- <div class="preview-shadow mat-elevation-z8"></div> -->
   </div>
 </ng-container>
@@ -24,10 +24,7 @@
 
     <!-- oponnent plateau -->
     <mat-grid-tile colspan="6" rowspan="3">
-      <div id="opponnent_plateau" class="plateau blue-box"
-          cdkDropListOrientation="horizontal"
-          [cdkDropListData]="opponnent.plateau"
-          (cdkDropListDropped)="drop($event)" cdkDropList>
+      <div id="opponnent_plateau" class="plateau blue-box">
         <ng-container *ngFor="let item of opponnent.plateau">
           <app-simple-card [card]="item" dragDisable="true"></app-simple-card>
         </ng-container>
@@ -35,9 +32,10 @@
     </mat-grid-tile>
 
     <!-- frame -->
-    <mat-grid-tile colspan="1" rowspan="5">
+    <mat-grid-tile colspan="1" rowspan="3">
+      <app-player-status [player]="opponnent"></app-player-status>
     </mat-grid-tile>
-    
+
     <!-- player plateau -->
     <mat-grid-tile colspan="6" rowspan="3">
       <div id="plateau" class="plateau pink-box"
@@ -49,6 +47,12 @@
         </ng-container>
       </div>
     </mat-grid-tile>
+
+    <!-- frame -->
+    <mat-grid-tile colspan="1" rowspan="2">
+      <app-player-status [player]="player"></app-player-status>
+    </mat-grid-tile>
+    
 
     <!-- draw -->
     <mat-grid-tile colspan="1" rowspan="2">

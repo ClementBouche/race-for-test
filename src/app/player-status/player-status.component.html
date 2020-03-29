@@ -1,0 +1,16 @@
+<ng-container *ngIf="player">
+  <mat-card class="player-info" [ngClass]="player.color">
+    <button mat-mini-fab>
+      <mat-icon>person</mat-icon>
+    </button>
+    <p>
+      {{ player.username }}
+    </p>
+    <mat-divider></mat-divider>
+    <ul>
+      <li>Hand: {{ player.hand.length }}</li>
+      <li>Plateau: {{ player.plateau.length }}</li>
+      <li>VP: {{ player.vp }}</li>
+    </ul>
+  </mat-card>
+</ng-container>

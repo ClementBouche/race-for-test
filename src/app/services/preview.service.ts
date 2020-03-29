@@ -9,10 +9,18 @@ export class PreviewService {
 
   cardSelection: Subject<{card: Card, cover: boolean}> = new Subject<{card: Card, cover: boolean}>();
 
+  currentSelection;
+
   constructor() { }
 
   nextCard(card: Card, cover: boolean) {
-    this.cardSelection.next({card: card, cover: cover});
+    if (this.currentSelection == card.id) {
+      this.cardSelection.next(null);
+      this.currentSelection = null;
+    } else {
+      this.cardSelection.next({card: card, cover: cover});
+      this.currentSelection = card.id;
+    }
   }
 
 }

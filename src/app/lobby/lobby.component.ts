@@ -7,8 +7,10 @@ import { GameService } from '../services/game.service';
   styleUrls: ['./lobby.component.css']
 })
 export class LobbyComponent implements OnInit {
-  
+
   rooms: String[];
+
+  username;
 
   constructor(
     private gameService: GameService,
@@ -24,6 +26,19 @@ export class LobbyComponent implements OnInit {
 
       this.cd.markForCheck();
     });
+
+    if (localStorage.getItem('username') === null) {
+    } else {
+      this.username = localStorage.getItem('username');
+    }
+  }
+
+  newRoom() {
+    this.gameService.createRoom();
+  }
+
+  deleteRooms() {
+    this.gameService.leaveAll();
   }
 
 }

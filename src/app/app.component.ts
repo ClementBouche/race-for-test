@@ -4,14 +4,20 @@ import { GameService } from './services/game.service';
 const usernames = [
   'Cléopatre', 
   'Vercingétorix',
-  'Pikachu',
-  'Dauphin de Martinique',
+  'Pikachu 🐁',
+  'Dauphin de Martinique 🦩',
   'PhillipOdile',
-  'Poussin doré',
-  'Disco éléphant',
-  'Girage trapéziste',
-  'Batman',
-  'Robin des bois'
+  'Poussin doré 🐣',
+  'Disco éléphant 🐘',
+  'Girage trapéziste 🦒',
+  'Batman 🦇',
+  'Robin des bois',
+  'Chocobo',
+  'Cloud 🌪️',
+  'Balthier 💥',
+  'Akhenaton 🏜️ ',
+  'Licorne 🦄',
+  'Cochon amical 🐷'
 ];
 
 @Component({
@@ -44,14 +50,6 @@ export class AppComponent implements OnInit {
       this.username = localStorage.getItem('username');
     }
     this.cd.markForCheck();
-  }
-
-  newRoom() {
-    this.gameService.createRoom();
-  }
-
-  deleteRooms() {
-    this.gameService.leaveAll();
   }
 
 }

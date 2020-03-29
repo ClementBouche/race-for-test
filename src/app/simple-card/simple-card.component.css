@@ -11,6 +11,10 @@
   border: 5px solid black;
 }
 
+.preview:hover {
+  transform: scale(1.4);
+}
+
 /* 
 .card-box:hover, .card-box:active {
   height: 400px;
