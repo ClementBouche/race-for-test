@@ -1,5 +1,28 @@
 /* You can add global styles to this file, and also import other style files */
 
+/* fonts */
+@font-face {
+  font-family: 'Nunito';
+  src: url('/assets/fonts/Nunito/Nunito-Regular.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Montserrat';
+  src: url('/assets/fonts/Montserrat/Montserrat-Regular.ttf') format('truetype');
+}
+
+html {
+  --first-color: #FF9800;
+  --first-color-lighter: #FFE0B2;
+  --first-color-darker: #F57C00;
+  --second-color: #009688;
+  --text-icon-color: #212121;
+  --first-text-color: #212121;
+  --second-text-color: #757575;
+  --divider-color: #BDBDBD;
+  font-family: 'Montserrat', sans-serif;
+}
+
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
@@ -12,6 +35,10 @@ body {
   margin: auto;
   border: 2px solid black;
   position: relative; */
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Nunito', 'Montserrat', sans-serif;
 }
 
 .blue {

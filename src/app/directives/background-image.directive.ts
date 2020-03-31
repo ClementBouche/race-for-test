@@ -39,13 +39,17 @@ export class BackgroundImageDirective implements OnChanges {
       ;
       this.el.nativeElement.style.backgroundPosition = `calc(${x}) calc(${y})`;
     }
-    if (this.sprite && this.mode === 'simple') {
-      const x = this.sprite[0];
-      const y = this.sprite[1];
-      this.el.nativeElement.style.backgroundPosition = `-${x}00% -${y}00%`;
-    }
     if (this.sprite === null) {
       this.el.nativeElement.style.backgroundSize = 'contain';
+      this.el.nativeElement.style.backgroundRepeat = 'no-repeat';
+    }
+    if (this.mode === 'simple') {
+      // const x = this.sprite[0];
+      // const y = this.sprite[1];
+      // this.el.nativeElement.style.backgroundPosition = `-${x}00% -${y}00%`;
+      // contain
+      this.el.nativeElement.style.backgroundSize = '105%';
+      this.el.nativeElement.style.backgroundPosition = 'center';
       this.el.nativeElement.style.backgroundRepeat = 'no-repeat';
     }
   }

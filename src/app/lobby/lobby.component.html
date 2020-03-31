@@ -18,11 +18,15 @@
       <mat-card>
         <div class="info">{{ item.name }}</div>
         <mat-divider></mat-divider>
-        <div class="info">Partie <span *ngIf="item.game">de {{ item.gameName }}</span> en cours.</div>
+        <div class="info">Partie <span *ngIf="item.gameName">de {{ item.gameName }}</span> en cours.</div>
+        <mat-divider></mat-divider>
+        <ul>
+          <li *ngFor="let user of item.users">{{ user }}</li>
+        </ul>
         <mat-divider></mat-divider>
         <div class="info">
           <a mat-raised-button color="primary" [routerLink]="['/', 'join', item.id]" routerLinkActive="active">Rejoindre</a>
-          <a mat-raised-button color="error" (click)="deleteRoom(item.name)">Supprimer</a>
+          <a mat-raised-button color="error" (click)="deleteRoom(item.id)">Supprimer</a>
         </div>
       </mat-card>
     </mat-grid-tile>

@@ -16,6 +16,7 @@
 </ng-container>
 -->
 
+<!-- <div class="table" #plateau cdkDropListGroup appBackgroundImage="/assets/starr/theme_1.jpg"> -->
 <div class="table" #plateau cdkDropListGroup>
 
   <mat-grid-list *ngIf="reserve" cols="8" rowHeight="5%">
@@ -34,7 +35,7 @@
           </mat-card> -->
           <div id="opponnent_draw" class="pile mat-elevation-z8" [ngClass]="opponnent.color">
             <ng-container *ngFor="let item of opponnent.draw">
-              <app-simple-card [card]="item" [cover]="room.game.coverImage" dragDisable="true"></app-simple-card>
+              <app-simple-card [card]="item" [cover]="room.game.coverImage" mode="simple" dragDisable="true"></app-simple-card>
             </ng-container>
           </div>
         </div>
@@ -92,7 +93,7 @@
               [cdkDropListData]="reserve.draw"
               (cdkDropListDropped)="drop($event)" cdkDropList>
             <ng-container *ngFor="let item of reserve.draw">
-              <app-simple-card [card]="item" [cover]="room.game.coverImage"></app-simple-card>
+              <app-simple-card [card]="item" mode="simple" [cover]="room.game.coverImage"></app-simple-card>
             </ng-container>
           </div>
         </div>
@@ -169,7 +170,7 @@
               [cdkDropListData]="player.draw"
               (cdkDropListDropped)="drop($event)" cdkDropList>
             <ng-container *ngFor="let item of player.draw">
-              <app-simple-card [card]="item" [cover]="room.game.coverImage"></app-simple-card>
+              <app-simple-card [card]="item" mode="simple" [cover]="room.game.coverImage"></app-simple-card>
             </ng-container>
           </div>
         </div>

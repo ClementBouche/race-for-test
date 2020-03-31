@@ -82,7 +82,7 @@ export class StarReaComponent implements OnInit {
       this.doAction({
         target: event.container.id || null,
         from: event.previousContainer.id || null,
-        cardid: parseInt(event.item.element.nativeElement.id) || null
+        cardid: parseInt(event.item.element.nativeElement.id)
       });
     }
   }

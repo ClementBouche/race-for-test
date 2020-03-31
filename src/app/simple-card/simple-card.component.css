@@ -9,6 +9,7 @@
   /* background-size: 300%; */
   border-radius: inherit;
   border: 5px solid black;
+  background-color: #888787;
 }
 
 .preview:hover {
