@@ -40,6 +40,8 @@ export class StarReaComponent implements OnInit {
     cover: string;
   }>;
 
+  showDiscard: string = '';
+
   constructor(
     private gameService: GameService,
     private previewService: PreviewService,
@@ -93,6 +95,21 @@ export class StarReaComponent implements OnInit {
 
   closePreview() {
     this.previewService.cardSelection.next(null);
+  }
+
+  displayDiscard() {
+    if (this.showDiscard === '') {
+      this.showDiscard = 'player';
+      return;
+    }
+    if (this.showDiscard === 'player') {
+      this.showDiscard = 'opponnent';
+      return;
+    }
+    if (this.showDiscard === 'opponnent') {
+      this.showDiscard = '';
+      return;
+    }
   }
 
 }

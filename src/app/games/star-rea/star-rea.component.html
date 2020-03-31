@@ -180,13 +180,32 @@
 
     <!-- player hand -->
     <mat-grid-tile class="hand-tile" colspan="4" rowspan="5">
-      <ng-container *ngIf="player">
-        <!-- hand -->
-        <div id="player_hand" class="hand mat-elevation-z8"
+      <ng-container *ngIf="player && showDiscard === ''">
+        <div id="player_hand" class="hand" [ngClass]="player.color"
             [cdkDropListData]="player.hand"
             cdkDropListOrientation="horizontal"
             (cdkDropListDropped)="drop($event)" cdkDropList>
             <ng-container *ngFor="let item of player.hand">
+              <app-simple-card [card]="item" mode="simple"></app-simple-card>
+            </ng-container>
+        </div>
+      </ng-container>
+      <ng-container *ngIf="player && showDiscard === 'player'">
+        <div id="player_discard" class="hand"
+            [cdkDropListData]="player.discard"
+            cdkDropListOrientation="horizontal"
+            (cdkDropListDropped)="drop($event)" cdkDropList>
+            <ng-container *ngFor="let item of player.discard">
+              <app-simple-card [card]="item" mode="simple"></app-simple-card>
+            </ng-container>
+        </div>
+      </ng-container>
+      <ng-container *ngIf="opponnent && showDiscard === 'opponnent'">
+        <div id="opponnent_discard" class="hand" [ngClass]="opponnent.color"
+            [cdkDropListData]="opponnent.discard"
+            cdkDropListOrientation="horizontal"
+            (cdkDropListDropped)="drop($event)" cdkDropList>
+            <ng-container *ngFor="let item of opponnent.discard">
               <app-simple-card [card]="item" mode="simple"></app-simple-card>
             </ng-container>
         </div>
@@ -201,6 +220,9 @@
         <div class="area">
           <mat-card class="info">
             Défausse : {{ player.discard.length }}
+            <button mat-mini-fab color="accent" (click)="displayDiscard()">
+              <mat-icon>launch</mat-icon>
+            </button>
           </mat-card>
           <div id="player_discard" class="pile mat-elevation-z8"
             [cdkDropListData]="player.discard"
