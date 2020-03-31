@@ -57,15 +57,16 @@ export class DragExchangeComponent implements OnInit, AfterViewInit {
     ).subscribe();
 
     this.gameService.room.subscribe((data) => {
+
       this.pile = {
-        draw: data.draw,
-        discard: data.discard,
-        vp: data.stock.vp
+        draw: data.game.reserve.draw,
+        discard: data.game.reserve.discard,
+        vp: data.game.reserve.vp
       };
 
-      this.player = data.players.find((pl) => pl.username === this.gameService.getUsername());
+      this.player = data.game.players.find((pl) => pl.username === this.gameService.getUsername());
 
-      this.opponnent = data.players.find((pl) => pl.username !== this.gameService.getUsername());
+      this.opponnent = data.game.players.find((pl) => pl.username !== this.gameService.getUsername());
 
       this.cd.markForCheck();
     });
@@ -88,15 +89,6 @@ export class DragExchangeComponent implements OnInit, AfterViewInit {
   }
 
   drop(event: CdkDragDrop<string[]>) {
-    if (event.container.id === 'discard') {
-      this.discard(event.item.element.nativeElement.id);
-    }
-    if (event.container.id === 'hand') {
-      this.pick(event.item.element.nativeElement.id);
-    }
-    if (event.container.id === 'plateau') {
-      this.play(event.item.element.nativeElement.id);
-    }
 
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
@@ -106,18 +98,6 @@ export class DragExchangeComponent implements OnInit, AfterViewInit {
                         event.previousIndex,
                         event.currentIndex);
     }
-  }
-
-  pick(cardid) {
-    this.gameService.pick(parseInt(cardid));
-  }
-
-  discard(cardid) {
-    this.gameService.discard(parseInt(cardid));
-  }
-
-  play(cardid) {
-    this.gameService.play(parseInt(cardid));
   }
 
   closePreview() {

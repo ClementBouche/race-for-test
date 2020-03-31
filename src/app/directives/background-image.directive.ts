@@ -12,6 +12,8 @@ export class BackgroundImageDirective implements OnChanges {
 
   @Input('appBackgroundSprite') sprite: number[];
 
+  @Input('appBackgroundMode') mode: string;
+
   @Input('appBackgroundPreview') previewed: boolean = false;
 
   constructor(private el: ElementRef) {}
@@ -23,6 +25,8 @@ export class BackgroundImageDirective implements OnChanges {
     this.el.nativeElement.style.backgroundPosition = 'inherit';
     this.el.nativeElement.style.backgroundSize = 'inherit';
     this.el.nativeElement.style.backgroundRepeat = 'inherit';
+    // console.log(this.image);
+    // console.log(this.sprite);
 
     if (this.sprite) {
       const x = this.previewed ? 
@@ -34,7 +38,13 @@ export class BackgroundImageDirective implements OnChanges {
           this.sprite[1] + '00% + ' + deltaY[0][this.sprite[1]] + 'px'
       ;
       this.el.nativeElement.style.backgroundPosition = `calc(${x}) calc(${y})`;
-    } else {
+    }
+    if (this.sprite && this.mode === 'simple') {
+      const x = this.sprite[0];
+      const y = this.sprite[1];
+      this.el.nativeElement.style.backgroundPosition = `-${x}00% -${y}00%`;
+    }
+    if (this.sprite === null) {
       this.el.nativeElement.style.backgroundSize = 'contain';
       this.el.nativeElement.style.backgroundRepeat = 'no-repeat';
     }

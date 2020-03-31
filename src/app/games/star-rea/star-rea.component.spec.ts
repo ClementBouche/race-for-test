@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DragListComponent } from './drag-list.component';
+import { StarReaComponent } from './star-rea.component';
 
-describe('DragListComponent', () => {
-  let component: DragListComponent;
-  let fixture: ComponentFixture<DragListComponent>;
+describe('StarReaComponent', () => {
+  let component: StarReaComponent;
+  let fixture: ComponentFixture<StarReaComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ DragListComponent ]
+      declarations: [ StarReaComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(DragListComponent);
+    fixture = TestBed.createComponent(StarReaComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

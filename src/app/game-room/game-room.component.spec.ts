@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SimpleDragComponent } from './simple-drag.component';
+import { GameRoomComponent } from './game-room.component';
 
-describe('SimpleDragComponent', () => {
-  let component: SimpleDragComponent;
-  let fixture: ComponentFixture<SimpleDragComponent>;
+describe('GameRoomComponent', () => {
+  let component: GameRoomComponent;
+  let fixture: ComponentFixture<GameRoomComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SimpleDragComponent ]
+      declarations: [ GameRoomComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SimpleDragComponent);
+    fixture = TestBed.createComponent(GameRoomComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

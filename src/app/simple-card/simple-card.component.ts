@@ -13,9 +13,11 @@ export class SimpleCardComponent implements OnChanges {
 
   @Input() dragDisable: boolean = false;
 
-  @Input() cover: boolean = false;
+  @Input() cover: string;
 
   @Input() isPreview: boolean = false;
+
+  @Input() mode: string;
 
   backgroundImage: string;
 
@@ -27,8 +29,8 @@ export class SimpleCardComponent implements OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (this.card) {
-      this.backgroundImage = this.cover ? 'assets/rftg/rftg_50q_7.jpg' : this.card.image;
-      this.backgroundSprite = this.cover ? [1, 1] : this.card.sprite;
+      this.backgroundImage = this.cover ? this.cover : this.card.image;
+      this.backgroundSprite = this.cover ? null : this.card.sprite;
     }
   }
 

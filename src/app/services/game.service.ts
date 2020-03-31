@@ -12,17 +12,17 @@ export class GameService {
     map((data) => new Room().deserialize(data))
   );
 
-  rooms = this.socket.fromEvent<String[]>('rooms').pipe(
-    map((data) => data)
+  rooms = this.socket.fromEvent<Room[]>('rooms').pipe(
+    map((data) => data.map((item) => new Room().deserialize(item)))
   );
 
   mouseMoved = this.socket.fromEvent<any>('mouse_moved').pipe(
     map((data) => data)
   );
 
-  private rooms__: String[];
+  private rooms__: Room[];
 
-  private roomName: string;
+  private idRoom: string;
 
   constructor(
     private socket: Socket
@@ -32,6 +32,8 @@ export class GameService {
     return localStorage.getItem('username');
   }
 
+  // rooms controller
+
   getRooms() {
     return this.rooms__;
   }
@@ -40,67 +42,47 @@ export class GameService {
     this.rooms__ = rooms;
   }
 
-
-  createRoom() {
+  createRoom(game: string) {
     this.socket.emit('create', {
+      username: this.getUsername(),
+      game: game
+    });
+  }
+
+  deleteRoom(idRoom) {
+    this.socket.emit('delete', {
+      username: this.getUsername(),
+      room: idRoom
+    });
+  }
+
+  deleteAll() {
+    this.socket.emit('delete_all', {
       username: this.getUsername()
     });
   }
 
-
-  leaveAll() {
-    this.socket.emit('leave_all', {
-      username: this.getUsername()
-    });
-  }
-
-
-  joinRoom(name: string) {
+  joinRoom(id: string) {
     this.socket.emit('join', {
-      room: name,
+      room: id,
       username: this.getUsername()
     });
-    this.roomName = name;
+    this.idRoom = id;
   }
 
+  // game controller
 
-  leaveRoom() {
-    this.socket.emit('leave', {
-      room: this.roomName,
-      username: this.getUsername()
-    });
-  }
-  
-
-  pick(cardid: number) {
-    this.socket.emit('draw', {
-      room: this.roomName,
+  doAction(msg) {
+    const action = Object.assign(msg, {
+      room: this.idRoom,
       username: this.getUsername(),
-      cardid: cardid
     });
-  }
-
-
-  discard(cardid: number) {
-    this.socket.emit('discard', {
-      room: this.roomName,
-      username: this.getUsername(),
-      cardid: cardid
-    });
-  }
-
-
-  play(cardid: number) {
-    this.socket.emit('play', {
-      room: this.roomName,
-      username: this.getUsername(),
-      cardid: cardid
-    });
+    this.socket.emit('game_action', action);
   }
 
   mouseMove(event) {
     this.socket.emit('move', {
-      room: this.roomName,
+      room: this.idRoom,
       username: this.getUsername(),
       mouse_event: {
         x: event.clientX,

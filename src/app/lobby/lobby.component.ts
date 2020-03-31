@@ -1,5 +1,6 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { GameService } from '../services/game.service';
+import { Room } from '../model/room.model';
 
 @Component({
   selector: 'app-lobby',
@@ -8,7 +9,7 @@ import { GameService } from '../services/game.service';
 })
 export class LobbyComponent implements OnInit {
 
-  rooms: String[];
+  rooms: Room[];
 
   username;
 
@@ -33,12 +34,16 @@ export class LobbyComponent implements OnInit {
     }
   }
 
-  newRoom() {
-    this.gameService.createRoom();
+  newRoom(game: string) {
+    this.gameService.createRoom(game);
+  }
+
+  deleteRoom(name) {
+    this.gameService.deleteRoom(name);
   }
 
   deleteRooms() {
-    this.gameService.leaveAll();
+    this.gameService.deleteAll();
   }
 
 }

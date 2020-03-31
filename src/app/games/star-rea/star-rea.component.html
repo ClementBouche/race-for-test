@@ -1,0 +1,217 @@
+<ng-container *ngIf="cardPreview | async as __preview__">
+  <div class="preview">
+    <app-simple-card
+          [card]="__preview__.card"
+          [cover]="__preview__.cover"
+          dragDisable="true" isPreview="true" mode="simple">
+    </app-simple-card>
+    <!-- <button mat-mini-fab color="accent" (click)="closePreview()"><</button> -->
+    <!-- <div class="preview-shadow mat-elevation-z8"></div> -->
+  </div>
+</ng-container>
+
+<!-- 
+<ng-container *ngIf="opponnent">
+  <div [appOpponentMouse]="opponnentMouse" class="opponnent_mouse"></div>
+</ng-container>
+-->
+
+<div class="table" #plateau cdkDropListGroup>
+
+  <mat-grid-list *ngIf="reserve" cols="8" rowHeight="5%">
+
+    <!-- frame -->
+    <mat-grid-tile colspan="1" rowspan="15">
+    </mat-grid-tile>
+
+    <!-- oponnent draw -->
+    <mat-grid-tile colspan="1" rowspan="5">
+      <ng-container *ngIf="opponnent">
+        <!-- draw -->
+        <div class="area">
+          <!-- <mat-card class="info">
+            Pioche : {{ opponnent.draw.length }}
+          </mat-card> -->
+          <div id="opponnent_draw" class="pile mat-elevation-z8" [ngClass]="opponnent.color">
+            <ng-container *ngFor="let item of opponnent.draw">
+              <app-simple-card [card]="item" [cover]="room.game.coverImage" dragDisable="true"></app-simple-card>
+            </ng-container>
+          </div>
+        </div>
+      </ng-container>
+    </mat-grid-tile>
+
+    <!-- oponnent plateau -->
+    <mat-grid-tile colspan="4" rowspan="5">
+      <ng-container *ngIf="opponnent">
+        <div id="opponnent_plateau" class="plateau" [ngClass]="opponnent.color">
+          <ng-container *ngFor="let item of opponnent.plateau">
+            <app-simple-card [card]="item" mode="simple" dragDisable="true"></app-simple-card>
+          </ng-container>
+        </div>
+      </ng-container>
+    </mat-grid-tile>
+
+
+    <!-- oponnent discard -->
+    <mat-grid-tile colspan="1" rowspan="5">
+      <ng-container *ngIf="opponnent">
+        <!-- draw -->
+        <div class="area">
+          <!-- <mat-card class="info">
+            Défausse : {{ opponnent.discard.length }}
+          </mat-card> -->
+          <div id="opponnent_discard" class="pile mat-elevation-z8" [ngClass]="opponnent.color">
+            <ng-container *ngFor="let item of opponnent.discard">
+              <app-simple-card [card]="item" mode="simple" dragDisable="true"></app-simple-card>
+            </ng-container>
+          </div>
+        </div>
+      </ng-container>
+    </mat-grid-tile>
+
+
+    <!-- frame -->
+    <mat-grid-tile colspan="1" rowspan="20">
+      <ng-container *ngIf="opponnent">
+        <app-player-status [player]="opponnent"></app-player-status>
+      </ng-container>
+    </mat-grid-tile>
+
+
+    <!-- market plateau -->
+    <mat-grid-tile colspan="6" rowspan="5">
+      <ng-container *ngIf="reserve">
+        <!-- draw -->
+        <div class="area">
+          <mat-card class="info">
+            Réserve : {{ reserve.draw.length }}
+          </mat-card>
+          <div id="reserve_draw" class="pile mat-elevation-z8"
+              cdkDropListOrientation="horizontal"
+              [cdkDropListData]="reserve.draw"
+              (cdkDropListDropped)="drop($event)" cdkDropList>
+            <ng-container *ngFor="let item of reserve.draw">
+              <app-simple-card [card]="item" [cover]="room.game.coverImage"></app-simple-card>
+            </ng-container>
+          </div>
+        </div>
+        <!-- market -->
+        <div id="reserve_market" class="plateau market mat-elevation-z8"
+            cdkDropListOrientation="horizontal"
+            [cdkDropListData]="reserve.market"
+            (cdkDropListDropped)="drop($event)" cdkDropList>
+          <ng-container *ngFor="let item of reserve.market">
+            <app-simple-card [card]="item" mode="simple"></app-simple-card>
+          </ng-container>
+        </div>
+        <!-- discard -->
+        <div class="area">
+          <mat-card class="info">
+            Explorers : {{ reserve.explorers.length }}
+          </mat-card>
+          <div id="reserve_explorers" class="pile mat-elevation-z8"
+            [cdkDropListData]="reserve.explorers"
+            (cdkDropListDropped)="drop($event)" cdkDropList>
+            <ng-container *ngFor="let item of reserve.explorers">
+              <app-simple-card [card]="item" mode="simple"></app-simple-card>
+            </ng-container>
+          </div>
+        </div>
+        <!-- discard -->
+        <div class="area">
+          <mat-card class="info">
+            Recyclés : {{ reserve.discard.length }}
+          </mat-card>
+          <div id="reserve_discard" class="pile mat-elevation-z8"
+            [cdkDropListData]="reserve.discard"
+            (cdkDropListDropped)="drop($event)" cdkDropList>
+            <ng-container *ngFor="let item of reserve.discard">
+              <app-simple-card [card]="item" dragDisable="true" mode="simple"></app-simple-card>
+            </ng-container>
+          </div>
+        </div>
+      </ng-container>
+    </mat-grid-tile>
+
+    <!-- player plateau -->
+    <mat-grid-tile colspan="6" rowspan="5">
+      <ng-container *ngIf="player">
+        <!-- player plateau -->
+        <div id="player_plateau" class="plateau" [ngClass]="player.color"
+           cdkDropListOrientation="horizontal"
+            [cdkDropListData]="player.plateau"
+            (cdkDropListDropped)="drop($event)" cdkDropList>
+          <ng-container *ngFor="let item of player.plateau">
+            <app-simple-card [card]="item" mode="simple"></app-simple-card>
+          </ng-container>
+        </div>
+      </ng-container>
+    </mat-grid-tile>
+
+    <mat-grid-tile colspan="1" rowspan="5">
+      <ng-container *ngIf="player">
+        <app-player-status [player]="player"></app-player-status>
+      </ng-container>
+    </mat-grid-tile>
+
+
+    <!-- player draw -->
+    <mat-grid-tile colspan="1" rowspan="5">
+      <ng-container *ngIf="player">
+        <!-- draw -->
+        <div class="area">
+          <mat-card class="info">
+            Pioche : {{ player.draw.length }}
+          </mat-card>
+          <div id="player_draw" class="pile mat-elevation-z8"
+              cdkDropListOrientation="horizontal"
+              [cdkDropListData]="player.draw"
+              (cdkDropListDropped)="drop($event)" cdkDropList>
+            <ng-container *ngFor="let item of player.draw">
+              <app-simple-card [card]="item" [cover]="room.game.coverImage"></app-simple-card>
+            </ng-container>
+          </div>
+        </div>
+      </ng-container>
+    </mat-grid-tile>
+
+
+    <!-- player hand -->
+    <mat-grid-tile class="hand-tile" colspan="4" rowspan="5">
+      <ng-container *ngIf="player">
+        <!-- hand -->
+        <div id="player_hand" class="hand mat-elevation-z8"
+            [cdkDropListData]="player.hand"
+            cdkDropListOrientation="horizontal"
+            (cdkDropListDropped)="drop($event)" cdkDropList>
+            <ng-container *ngFor="let item of player.hand">
+              <app-simple-card [card]="item" mode="simple"></app-simple-card>
+            </ng-container>
+        </div>
+      </ng-container>
+    </mat-grid-tile>
+
+
+    <!-- player discard -->
+    <mat-grid-tile colspan="1" rowspan="5">
+      <ng-container *ngIf="player">
+        <!-- discard -->
+        <div class="area">
+          <mat-card class="info">
+            Défausse : {{ player.discard.length }}
+          </mat-card>
+          <div id="player_discard" class="pile mat-elevation-z8"
+            [cdkDropListData]="player.discard"
+            (cdkDropListDropped)="drop($event)" cdkDropList>
+            <ng-container *ngFor="let item of player.discard">
+              <app-simple-card [card]="item" dragDisable="true" mode="simple"></app-simple-card>
+            </ng-container>
+          </div>
+        </div>
+      </ng-container>
+    </mat-grid-tile>
+
+  </mat-grid-list>
+
+</div>

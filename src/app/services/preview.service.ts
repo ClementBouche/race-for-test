@@ -7,13 +7,13 @@ import { Subject } from 'rxjs';
 })
 export class PreviewService {
 
-  cardSelection: Subject<{card: Card, cover: boolean}> = new Subject<{card: Card, cover: boolean}>();
+  cardSelection: Subject<{card: Card, cover: string}> = new Subject<{card: Card, cover: string}>();
 
   currentSelection;
 
   constructor() { }
 
-  nextCard(card: Card, cover: boolean) {
+  nextCard(card: Card, cover: string) {
     if (this.currentSelection == card.id) {
       this.cardSelection.next(null);
       this.currentSelection = null;

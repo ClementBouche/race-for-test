@@ -1,8 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { LeaveRoomComponent } from './leave-room/leave-room.component';
-import { DragExchangeComponent } from './drag-exchange/drag-exchange.component';
 import { LobbyComponent } from './lobby/lobby.component';
+import { GameRoomComponent } from './game-room/game-room.component';
 
 
 const routes: Routes = [
@@ -11,12 +10,8 @@ const routes: Routes = [
     component: LobbyComponent
   },
   {
-    path: 'leave',
-    component: LeaveRoomComponent
-  },
-  {
     path: 'join/:room',
-    component: DragExchangeComponent
+    component: GameRoomComponent
   }
 ];
 

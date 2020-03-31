@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { LeaveRoomComponent } from './leave-room.component';
+import { RaceForComponent } from './race-for.component';
 
-describe('LeaveRoomComponent', () => {
-  let component: LeaveRoomComponent;
-  let fixture: ComponentFixture<LeaveRoomComponent>;
+describe('RaceForComponent', () => {
+  let component: RaceForComponent;
+  let fixture: ComponentFixture<RaceForComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ LeaveRoomComponent ]
+      declarations: [ RaceForComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(LeaveRoomComponent);
+    fixture = TestBed.createComponent(RaceForComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -1,8 +1,11 @@
 <mat-toolbar color="primary">
   <nav>
-    <a mat-raised-button color="accent" (click)="newRoom()">Nouvelle partie</a>
-    <a mat-raised-button color="accent" (click)="deleteRooms()">Supprimer toutes les parties</a>
+    Nouvelle partie : 
+    <a mat-raised-button color="accent" (click)="newRoom('race-for-the-galaxy')">Race for Galaxy</a>
+    <a mat-raised-button color="accent" (click)="newRoom('star-realms')">Star Realms</a>
   </nav>
+  <span></span>
+  <a mat-raised-button color="accent" (click)="deleteRooms()">Supprimer toutes les parties</a>
   <span></span>
   Bienvenue {{ username }}
 </mat-toolbar>
@@ -13,12 +16,13 @@
   <mat-grid-list cols="4">
     <mat-grid-tile *ngFor="let item of rooms" colspan="1" rowspan="1">
       <mat-card>
-        <div class="info">{{ item }}</div>
+        <div class="info">{{ item.name }}</div>
         <mat-divider></mat-divider>
-        <div class="info">Partie  en cours.</div>
+        <div class="info">Partie <span *ngIf="item.game">de {{ item.gameName }}</span> en cours.</div>
         <mat-divider></mat-divider>
         <div class="info">
-          <a mat-raised-button color="accent" [routerLink]="['/', 'join', item]" routerLinkActive="active">Rejoindre</a>
+          <a mat-raised-button color="primary" [routerLink]="['/', 'join', item.id]" routerLinkActive="active">Rejoindre</a>
+          <a mat-raised-button color="error" (click)="deleteRoom(item.name)">Supprimer</a>
         </div>
       </mat-card>
     </mat-grid-tile>

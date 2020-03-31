@@ -10,7 +10,8 @@
     <ul>
       <li>Hand: {{ player.hand.length }}</li>
       <li>Plateau: {{ player.plateau.length }}</li>
-      <li>VP: {{ player.vp }}</li>
+      <li *ngIf="player.vp">VP: {{ player.vp }}</li>
+      <li *ngIf="player.hp">HP: {{ player.hp }}</li>
     </ul>
   </mat-card>
 </ng-container>

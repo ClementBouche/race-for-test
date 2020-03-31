@@ -1,0 +1,18 @@
+<ng-container *ngIf="room$ | async as room">
+
+  <ng-container [ngSwitch]="room.gameName">
+
+    <app-race-for *ngSwitchCase="'race-for-the-galaxy'" 
+                  [room]="room">
+    </app-race-for>
+  
+    <app-star-rea *ngSwitchCase="'star-realms'" 
+                  [room]="room">
+    </app-star-rea>
+  
+    <div *ngSwitchDefault>
+      Oups ! il semble que le jeux ne soit pas supporté
+    </div>
+  </ng-container>
+  
+</ng-container>

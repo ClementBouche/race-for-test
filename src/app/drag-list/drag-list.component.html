@@ -1,8 +1,0 @@
-liste
-
-<mat-card *ngIf="cards" (cdkDropListDropped)="drop($event)" cdkDropList>
-  <ng-container *ngFor="let card of cards">
-    <app-simple-drag>{{ card }}</app-simple-drag>
-  </ng-container>
-</mat-card>
-
